@@ -17,7 +17,28 @@ const processJSON = (json) => {
     `;
     listGroup.innerHTML = output;
 };
+
+const writeServer = (action, data) => ({
+    method: action,
+    body: JSON.stringify(data),
+    headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+    },
+});
 // GET
 getPost.addEventListener('click', () => {
     fetch(`${url}/1`).then(getResponse).then(processJSON);
+});
+
+// POST
+addPost.addEventListener('click', () => {
+    const newPost = {
+        userId: 1,
+        title: 'post 101',
+        body: 'This is post 101',
+    };
+
+    fetch(url, writeServer('POST', newPost))
+        .then(getResponse)
+        .then(processJSON);
 });
