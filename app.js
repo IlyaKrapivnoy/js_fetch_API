@@ -42,3 +42,15 @@ addPost.addEventListener('click', () => {
         .then(getResponse)
         .then(processJSON);
 });
+
+// PUT 
+editPost.addEventListener('click', () => {
+    const updatePost = {
+        userId: 2,
+        title: 'post two',
+        body: 'This is post two!'
+    }
+    fetch(`${url}/1`, writeServer('PUT', updatePost))
+        .then(getResponse)
+        .then(processJSON)
+})
