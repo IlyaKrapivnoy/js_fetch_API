@@ -24,7 +24,11 @@ const addPost = document.querySelector('.add-post');
 const editPost = document.querySelector('.edit-post');
 const deletePost = document.querySelector('.delete-post');
 
+const getResponse = (response) => response.json();
+const processJSON = (json) => {
+    console.log(json);
+};
 // GET
 getPost.addEventListener('click', () => {
-    console.log('Get response')
-})
+    fetch(`${url}/1`).then(getResponse).then(processJSON);
+});
