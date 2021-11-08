@@ -11,10 +11,18 @@ let output = '';
 
 const getResponse = (response) => response.json();
 const processJSON = (json) => {
-    output = `
-        <li class="list-group-item">${json.title}</li>
-        <li class="list-group-item">${json.body}</li>
-    `;
+    if (!Object.keys(json).length) {
+        output = `
+            <li class="list-group-item">Deleted</li>
+            <li class="list-group-item">Deleted</li>
+        `;
+    } else {
+        output = `
+            <li class="list-group-item">${json.title}</li>
+            <li class="list-group-item">${json.body}</li>
+        `;
+    }
+
     listGroup.innerHTML = output;
 };
 
@@ -43,14 +51,19 @@ addPost.addEventListener('click', () => {
         .then(processJSON);
 });
 
-// PUT 
+// PUT
 editPost.addEventListener('click', () => {
     const updatePost = {
         userId: 2,
         title: 'post two',
-        body: 'This is post two!'
-    }
+        body: 'This is post two!',
+    };
     fetch(`${url}/1`, writeServer('PUT', updatePost))
         .then(getResponse)
-        .then(processJSON)
-})
+        .then(processJSON);
+});
+
+// DELETE
+deletePost.addEventListener('click', () => {
+    fetch(`${url}/1`, { method: 'DELETE' }).then(getResponse).then(processJSON);
+});
